@@ -31,6 +31,7 @@ class _PizzaDetailsState extends State<PizzaDetails> {
   }
   @override
   Widget build(BuildContext context) {
+   double totalPrice = _counter * widget.pizzaDetail.price;       
     return Scaffold(
        body: Stack(
          children: [
@@ -222,7 +223,8 @@ class _PizzaDetailsState extends State<PizzaDetails> {
                  child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(widget.pizzaDetail.price,style: AppTextStyles.text0,)
+                    // Text('\$'),
+                    Text('\$${totalPrice.toStringAsFixed(2)}',style: AppTextStyles.text0,)
                   ],
                  ),
                ),

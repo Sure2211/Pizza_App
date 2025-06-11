@@ -5,7 +5,7 @@ class PizzaModel {
   String name;
   String description;
   String image;
-  String price;
+  double price;
 
   PizzaModel({
    required this.name,
@@ -20,21 +20,23 @@ final List<PizzaModel> pizzaData = [
   PizzaModel(name: TextConstant.pepperoni,
    description: TextConstant.pepperoniinfo, 
    image: ImageContants.pizza,
-   price: '\$29'),
+   price: 29),
    
    PizzaModel(name: TextConstant.pizzacheese, 
    description: TextConstant.pizzacheeseinfo, 
    image:ImageContants.pizzacheese1,
-    price: '\$23'),
+    price: 23),
 
     PizzaModel(name: TextConstant.peppypaneer,
      description: TextConstant.pepperoniinfo,
       image: ImageContants.peppypaneer,
-       price: '\$15'),
+       price: 15),
 
    PizzaModel(name: TextConstant.mexicanpizza,
     description: TextConstant.pizzacheeseinfo,
      image: ImageContants.mexicanpizza, 
-     price: '\$33'),
+     price: 33),
 ];
 
+// the empty pizza cart list
+List<PizzaModel> pizzaCartList = [];

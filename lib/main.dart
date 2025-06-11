@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pizzaapp/Screens/home_page.dart';
+import 'package:pizzaapp/Screens/storage/user_storage.dart';
+import 'package:pizzaapp/Screens/widgets/drawer_screen.dart';
 
-void main() {
+Future <void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await UserPreferences.init();
+  UserPreferences.printFunction();
   runApp(const MyApp());
 }
 
@@ -16,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(),
+      home: UserPreferences.isLoggedIn() ? MyHomePage() : DrawerScreen() ,
     );
   }
 }

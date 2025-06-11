@@ -7,10 +7,31 @@ import 'package:pizzaapp/utils/constants/text_constant.dart';
 import 'package:pizzaapp/widgets/custom_fav_icon.dart';
 import 'package:pizzaapp/widgets/textstyle.dart';
 
-class PizzaCard extends StatelessWidget {
+class PizzaCard extends StatefulWidget {
   final PizzaModel model;
   const PizzaCard({super.key, required this.model});
 
+  @override
+  State<PizzaCard> createState() => _PizzaCardState();
+}
+
+class _PizzaCardState extends State<PizzaCard> {
+  bool isFav = false; //variable to toggle the color
+  //the method to toggle/change the color
+  void toggleFav(){
+    setState(() {
+      isFav = !isFav;
+    });
+  }
+  //Method to add item to cart
+  void addItemToCart(){
+    setState(() {
+      pizzaCartList.add(widget.model);
+    });
+    
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: 
+    Text('Item Successfully Added To Cart')));
+  }
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -19,7 +40,7 @@ class PizzaCard extends StatelessWidget {
           padding: const EdgeInsets.only(top: 40),
           child: GestureDetector(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> PizzaDetails(pizzaDetail: model,)));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> PizzaDetails(pizzaDetail: widget.model,)));
             },
             child: Container(
               margin: EdgeInsets.all(20),
@@ -35,7 +56,7 @@ class PizzaCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(model.name,
+                  Text(widget.model.name,
                   style: AppTextStyles.text4,),
                   SizedBox(
                     height: 15,
@@ -45,14 +66,14 @@ class PizzaCard extends StatelessWidget {
                     
                     children: [
                       Image.asset(ImageContants.flash),
-                      Text(model.description,style: AppTextStyles.text10,)
+                      Text(widget.model.description,style: AppTextStyles.text10,)
                     ],
                   ),
                   SizedBox(
                     height: 25,
                   ),
                   Text(
-                    model.price,
+                    '\$${widget.model.price.toStringAsFixed(0)}',
                     style: AppTextStyles.text15,
                   )
                 ],
@@ -69,14 +90,22 @@ class PizzaCard extends StatelessWidget {
             backgroundColor: AppColors.platecolor,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset(model.image,fit: BoxFit.cover,),
+              child: Image.asset(widget.model.image,fit: BoxFit.cover,),
             ),
           ),
         ),
         Positioned(
           right: 20,
           top: 35,
-          child: CustomFavIcon(size: 10,)
+          child: GestureDetector(
+            onTap: (){
+              addItemToCart();
+              toggleFav();
+            },
+
+            child: CustomFavIcon(
+              color: isFav ? AppColors.yellow : AppColors.backgroundcolor,
+              size: 10,))
           ),
           Positioned(
             left: 60,

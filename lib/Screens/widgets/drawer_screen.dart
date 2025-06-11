@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pizzaapp/Screens/cart_screen.dart';
 import 'package:pizzaapp/Screens/pizzacard.dart';
 import 'package:pizzaapp/data/pizza_data.dart';
 import 'package:pizzaapp/utils/constants/app_colors.dart';
@@ -30,7 +31,21 @@ class DrawerScreen extends StatelessWidget {
                 Icon(Icons.keyboard_arrow_down),
               ],
             ),
-           CustomFavIcon(),
+           Stack(
+             children: [
+               GestureDetector(
+                onTap: (){
+                  Navigator.push(context,MaterialPageRoute(builder: (context)=> CartScreen()
+                  ));
+                },
+                child: CustomFavIcon()),
+               Positioned( child:CircleAvatar(
+                radius: 10,
+                backgroundColor: AppColors.yellow,
+                child: Text('${pizzaCartList.length}',style: AppTextStyles.text14,),
+               ) )
+             ],
+           ),
           ],
         ),
       ),
